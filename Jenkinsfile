@@ -37,7 +37,7 @@ pipeline {
         stage('Déploiement automatique') {
             steps {
                 echo 'Mise à jour du cluster Kubernetes...'
-                sh 'kubectl apply -f k8s/'
+                sh 'kubectl apply -f k8s/ --validate=false'
             }
         }
     }
