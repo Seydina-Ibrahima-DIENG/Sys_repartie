@@ -1,0 +1,29 @@
+---
+- name: Deploiement Automatique de la Plateforme
+  hosts: local
+  tasks:
+    - name: Verification du dossier k8s
+      stat:
+        path: "../k8s"
+      register: k8s_folder
+
+    - name: Appliquer la configuration PostgreSQL
+      command: kubectl apply -f ../k8s/postgres-pvc.yaml
+      when: k8s_folder.stat.exists
+
+    - name: Appliquer le déploiement de la base de données
+      command: kubectl apply -f ../k8s/postgres-deployment.yaml
+
+    - name: Appliquer le Backend et le Frontend
+      command: "kubectl apply -f ../k8s/{{ item }}"
+      loop:
+        - backend-deployment.yaml
+        - frontend-deployment.yaml
+
+    - name: Verifier l'etat des Pods
+      command: kubectl get pods
+      register: pod_status
+
+    - name: Afficher le statut final
+      debug:
+        var: pod_status.stdout_lines
