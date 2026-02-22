@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div style={{ padding: '20px', fontFamily: 'sans-serif' }}>
-      <h1>Ma Plateforme Répartie</h1>
+      <h1>Bienvenue sur notre Boutique en Ligne</h1>
       <h2>Liste des Produits (depuis le Backend) :</h2>
       <ul>
         {products.length > 0 ? (
