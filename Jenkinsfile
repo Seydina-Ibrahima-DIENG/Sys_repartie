@@ -37,7 +37,12 @@ pipeline {
         stage('Déploiement automatique') {
             steps {
                 echo 'Mise à jour du cluster Kubernetes...'
+                // On applique les fichiers YAML
                 sh 'kubectl apply -f k8s/ --validate=false'
+                
+                // On force le redémarrage pour charger les nouvelles images poussées sur le Hub
+                sh 'kubectl rollout restart deployment backend'
+                sh 'kubectl rollout restart deployment frontend'
             }
         }
     }
