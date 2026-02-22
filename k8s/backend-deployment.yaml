@@ -15,7 +15,7 @@ spec:
       containers:
       - name: backend
         image: projet-systeme-reparti-backend:latest
-        imagePullPolicy: Never # Très important pour utiliser l'image locale
+        imagePullPolicy: Always 
         ports:
         - containerPort: 5000
         env:
